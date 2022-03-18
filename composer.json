@@ -1,0 +1,20 @@
+{
+  "name": "diff0815/php-elasticsearch-learning",
+  "description": "php elasticsearch learning",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "diff0815",
+      "email": "941334185@qq.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "diff0815\\": "src/"
+    }
+  },
+  "require": {
+    "elasticsearch/elasticsearch": "^7.0"
+  }
+}
