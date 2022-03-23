@@ -48,7 +48,7 @@ class ElasticTool
 
         $this->client = ClientBuilder::create()
                         ->setHosts($this->config['host'])
-                        ->setConnectionPool('Elasticsearch\ConnectionPool\SimpleConnectionPool')
+                        //->setConnectionPool('Elasticsearch\ConnectionPool\SimpleConnectionPool')
                         ->setRetries($this->config['retries'])->build();
 
     }
@@ -358,7 +358,7 @@ class ElasticTool
         return [
             'query' =>[
                 "match_phrase"=>[
-                    //"name"=>$keywords, 或者
+                    //"name"=>$keywords, //或者
                     "name"=>[
                         'query' => $keywords,
                         'boost' => 3, // 权重

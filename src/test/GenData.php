@@ -9,6 +9,7 @@
 include_once '../../vendor/autoload.php';
 include_once '../elasticsearchTool/ElasticTool.php';
 
+//修改自己的host 和 port
 $config = [
     'host' => [
         [
@@ -33,7 +34,10 @@ genData($elasticTool);
 echo 'success'.PHP_EOL;
 
 
-
+/**
+ * 生成数据
+ * @param $elasticTool
+ */
 function genData($elasticTool){
     $elasticTool->createIndex();
 
@@ -42,6 +46,7 @@ function genData($elasticTool){
         //5.x以上已经没有string类型。如果需要分词的话使用text，不需要分词使用 keyword。
         'time' => [
             'type' => 'text', //
+            'fielddata' => true, //text可排序
         ],
         'date' => [
             'type' => 'text', // 字符串型
@@ -50,12 +55,15 @@ function genData($elasticTool){
             'type' => 'text',
         ],
         'cate' => [
-            'type' => 'text',
+            'type' => 'integer',
         ],
         'price' => [
-            'type' => 'text',
+            'type' => 'long',
         ],
         'color' => [
+            'type' => 'text',
+        ],
+        'msg' => [
             'type' => 'text',
         ],
 
@@ -109,7 +117,8 @@ function genData($elasticTool){
 
         $goodRand = $rand%8;
 
-        $colorRand = $rand%8;
+        $rand2 = rand(0,100);
+        $colorRand = $rand2%8;
 
         $doc = [
             'time' => $time,
@@ -118,6 +127,7 @@ function genData($elasticTool){
             'cate' => $goodRand,
             'price' => $priceArr[$goodRand]*($rand+1),
             'color' => $colorArr[$colorRand],
+            'msg' => [$goodsArr[$goodRand],$goodRand,$priceArr[$goodRand]*($rand+1),$colorArr[$colorRand]],
         ];
         $elasticTool->addDoc($doc);
     }
